@@ -1,5 +1,5 @@
 # REMITA BILLER PHP SDK
-PHP SDK for Remita Billing Gateway Service simple APIs
+PHP SDK for Remita Billing Gateway Service simple APIs.
 
 ## Package 
 To install the `billing-gateway-sdk-php` package, run the following command.
@@ -8,7 +8,7 @@ To install the `billing-gateway-sdk-php` package, run the following command.
  composer require billing-gateway-sdk-php
 ```
 ## Requirements
-*  PHP 7.2.18 or later
+*  PHP 7.2.18 or later.
 
 ## Overview
 Integrating to Remita for Biller payments SDK enables your customers make payments to billers on Remita through your platform. This provides you with the capability to offer your customers access to the vast array of billers and merchants, including schools, churches, service providers and the Federal Government ministries, departments and agencies (MDAs) available on Remita to purchase and subscribe to their various products and services.
