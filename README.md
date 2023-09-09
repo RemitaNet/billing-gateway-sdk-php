@@ -1,31 +1,40 @@
 # REMITA BILLER PHP SDK
-PHP SDK for Remita Billing Gateway Service simple APIs.
 
-## Package 
+---
+- [Overview](#Overview)
+- [Installation](#Installation)
+- [Usage](#Usage)
+- [Contributing](#Contributing)
+- [License](License)
+
+---
+
+## Overview
+PHP SDK for Remita Billing Gateway Service simple APIs.
+Integrating to Remita for Biller payments SDK enables your customers make payments to billers on Remita through your platform. This provides you with the capability to offer your customers access to the vast array of billers and merchants, including schools, churches, service providers and the Federal Government ministries, departments and agencies (MDAs) available on Remita to purchase and subscribe to their various products and services.
+
+The process involves your customers selecting a biller to pay via your platform. They will supply payment details and confirm the details so you can debit their account with AmountDue to credit a designated Funds Holding Account. Your customers will be emailed Remita receipts (which are FGN MDA-recognized for TSA-bound payments) for each transaction.
+
+## Installation
 To install the `billing-gateway-sdk-php` package, run the following command.
 
 ```
  composer require billing-gateway-sdk-php
 ```
-## Requirements
+### Requirements
 *  PHP 7.2.18 or later.
 
-## Overview
-Integrating to Remita for Biller payments SDK enables your customers make payments to billers on Remita through your platform. This provides you with the capability to offer your customers access to the vast array of billers and merchants, including schools, churches, service providers and the Federal Government ministries, departments and agencies (MDAs) available on Remita to purchase and subscribe to their various products and services.
-
-The process involves your customers selecting a biller to pay via your platform. They will supply payment details and confirm the details so you can debit their account with AmountDue to credit a designated Funds Holding Account. Your customers will be emailed Remita receipts (which are FGN MDA-recognized for TSA-bound payments) for each transaction.
-
-## Prerequisites
+### Prerequisites
 Prior to using the SDK, you need to set up an integration profile on [Remita](https://login.remita.net) if you are not already registered as a merchant/biller on the platform. Each method call will require you to pass the Public key/Secret key. Your public and secret keys are located at the Billing page on your profile. After you login, click ‘Setup Billing’ at your dashboard >> click ‘Proceed’ on the ‘Yes’ option for the integration question that comes up >> to display the Public/Secret key.
 
-## Configuration
+### Configuration
 All biller credentials needed to use the SDK are being setup by instantiating the Credential Class and set properties in this class accordingly.
 Properties such as public_key, secret_key, and environment are mandatory.
 _Note:_ Environment can either be DEMO (DEMO) or LIVE (Live), each of this environment has it respective Credential. Ensure you set the 
 right credentials. By default Environment is DEMO
 
 
-## Responses
+### Responses
 Every successful method call returns 4 attributes 
 
 | Name  		| Data Type     | 
@@ -35,9 +44,10 @@ Every successful method call returns 4 attributes
 | appVersionCode| String 		| 
 | responseData  | List			|
 
+---
 
-## Methods
-#### Get Bller(s) To Your Profile
+## Usage
+### Get Bller(s) To Your Profile
 This returns a list of the billers, merchants and MDAs available on Remita.
 
 	
@@ -55,7 +65,7 @@ This returns a list of the billers, merchants and MDAs available on Remita.
 
  ```
 
-#### Get Service Types
+### Get Service Types
 This returns a list of products and services associated with specified billers on Remita.
 
 * The first step is to supply your credential which is the publicKey,    required to view the list of services;
@@ -79,7 +89,7 @@ This returns a list of products and services associated with specified billers o
 
  ```
 
-#### Get Custom Fields
+### Get Custom Fields
 Custom fields are additional information specific to a service/product offered for sale by a biller. A service/product may or may not have custom fields defined. This method returns a list of the custom fields associated with a specific product/service offered by a biller on the platform.
 
 * The first step is to supply your credential which is the publicKey,    required to get the custom fields;
@@ -101,7 +111,7 @@ Custom fields are additional information specific to a service/product offered f
     }
  ```
 
-#### Generate RRR
+### Generate RRR
 In order to complete the transaction through the Remita Payment Gateway, a Remita Retrieval Reference or RRR is required. This is what uniquely identifies and embodies the payment details of a transaction on the platform ecosystem. Calling this method will generate an RRR for the biller payment.
 
 * The first step is to supply your credential which is the publicKey,    required to generate rrr;
@@ -150,7 +160,7 @@ In order to complete the transaction through the Remita Payment Gateway, a Remit
 
  ```
 
-#### Validate Request
+### Validate Request
 You need to make a request for Remita to execute a validation operation on the details retrieved to check the validity of the data. This serves to ensure that the details being passed for payment are viable and will derive an amount payable to generate a Remita Retrieval Reference (RRR) successfully. This method enables you make this call towards generating an RRR for payment.
 
 * The first step is to supply your credential which is the publicKey,    required to validate rrr;
@@ -198,8 +208,7 @@ You need to make a request for Remita to execute a validation operation on the d
 
  ```
 
-
-#### Get RRR Details
+### Get RRR Details
 If your customer already has a Remita Retrieval Reference (RRR) before logging on to your online platform, he/she can also still process payment to Remita billers. They can supply the RRR, verify the RRR to display payment details associated with it before completing the payment. This method makes the call to verify the RRR.
 
 * The first step is to supply your credential which is the publicKey,    required to get the custom fields;
@@ -222,15 +231,13 @@ If your customer already has a Remita Retrieval Reference (RRR) before logging o
     }
  ```
 
-
-
-#### Bill Payment Notification
+### Bill Payment Notification
 After you have debit the customer with the RRR amount (amountDue) to process the payment, you are required to notify Remita with details of the transaction. Calling this method will send a payment notification for the transaction to Remita accordingly. 
 
-* The first step is to supply your credential which is the publicKey and the secretKey, required to get the payment notification;
+The first step is to supply your credential which is the publicKey and the secretKey, required to get the payment notification;
     1. transactionId: This uniquely identifies the transaction id to generate rrr
-	2. requestId: This uniquely identifies the request
-	3. hash: these are hash values using sha512 with the fields provided (rrr + amountDebitted + fundingSource + debittedAccount + paymentAuthCode + secretKey) 
+    2. requestId: This uniquely identifies the request
+    3. hash: these are hash values using sha512 with the fields provided (rrr + amountDebitted + fundingSource + debittedAccount + paymentAuthCode + secretKey) 
 
 
 ```php
@@ -262,7 +269,8 @@ After you have debit the customer with the RRR amount (amountDue) to process the
 
 
 ```
-#### Transaction Status
+
+### Transaction Status
 You may need to enquire that status of biller payments your customers have made via the Bill Payment Notification API.
 
 * The first step is to supply your credential which is the publicKey,    required to get the paymentStatus;
@@ -285,9 +293,28 @@ You may need to enquire that status of biller payments your customers have made 
 ```
 ---
     
-## Useful links
-* Join our Slack Developer/Support channel at http://bit.ly/RemitaDevSlack
+
+### Useful links
+Join our Slack Developer/Support channel on [Slack.](http://bit.ly/RemitaDevSlack)
     
-## Support
-- For all other support needs, support@remita.net
-- To contribute to this repo, create an issue on what you intend to fix or update, make a PR and team will look into it and merge.
+### Support
+For all other support needs, support@remita.net
+
+---
+
+## Contributing
+To contribute to this repo, follow these guidelines for creating issues, proposing new features, and submitting pull requests:
+
+1. Fork the repository.
+2. Create a new branch: `git checkout -b "feature-name"`
+3. Make your changes and commit: `git commit -m "added some new features"`
+4. Push your changes: `git push origin feature-name`
+5. Submit a Pull Request (PR).
+
+Thank you!
+
+---
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
